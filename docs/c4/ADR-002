@@ -40,3 +40,4 @@ Azure Cosmos DB (NoSQL): Rejeitado devido à natureza altamente relacional dos d
 Azure Blob Storage com Azure Synapse Serverless (Data Lakehouse): Embora moderno, foi rejeitado para evitar a complexidade de gerenciar arquivos Parquet e esquemas externos (External Tables) neste momento inicial, priorizando a estabilidade e o conhecimento prévio da equipe em bancos relacionais.
 
 Links
+Estimativa de custos para implementação da solução no Azure Calculator para 50GB de dados e 2 cores de processamento, vide "EstimatedCost.xlxs"
