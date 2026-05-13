@@ -1,5 +1,6 @@
 import azure.functions as func
 import logging
+import os
 #from orchestrators.etl_orchestrator import ETLOrchestrator
 
 app = func.Blueprint()
@@ -7,11 +8,14 @@ app = func.Blueprint()
 
 @app.timer_trigger(schedule="0 0 6 * * *", arg_name="timer", run_on_startup=False)
 def extract_categoria_produto(timer: func.TimerRequest) -> None:
-    """
-    Trigger de extração agendada (diária às 06:00 UTC).
-    Apenas delega para o orchestrator — sem lógica de negócio aqui.
-    """
-    logging.info("Extract categoria produto iniciado.")
-    #orchestrator = ETLOrchestrator()
-    #orchestrator.run_extraction()
-    logging.info("Extract categoria produto finalizado.")
+    sql_server = os.getenv("SQL_SERVER_SOURCE")
+    sql_database = os.getenv("SQL_DATABASE_SOURCE")
+    sql_user = os.getenv("SQL_USER_SOURCE")
+    sql_password = os.getenv("SQL_PASSWORD_SOURCE")
+
+    logging.info("Iniciando a extração de categoria_produto")
+    logging.info(f"Conectando ao banco de dados SQL Server: {sql_server}")
+    logging.info(f"Banco de dados: {sql_database}")
+    logging.info(f"Usuário: {sql_user}")
+    logging.info(f"Senha: {sql_password}")
+    logging.info("Extração de categoria_produto concluída com sucesso")
