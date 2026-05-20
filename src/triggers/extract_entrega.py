@@ -1,6 +1,7 @@
 import azure.functions as func
 import logging
 import pyodbc
+import os
 
 app = func.Blueprint()
 
@@ -8,12 +9,9 @@ app = func.Blueprint()
 def extract_entrega(timer: func.TimerRequest) -> None:
     
     sql_server = os.getenv("SQL_SERVER_SOURCE")
-    database = os.getenv("SQL_DATABASE_SOURCE")
-    user = os.getenv("SQL_USER_SOURCE")
-    password = os.getenv("SQL_PASSWORD_SOURCE")
-
-    logging.info(f"servidor: {sql_server},  banco: {database}, usuario:{user}, senha: {password} ...")
-
+    sql_database = os.getenv("SQL_DATABASE_SOURCE")
+    sql_user = os.getenv("SQL_USER_SOURCE")
+    sql_pass = os.getenv("SQL_PASSWORD_SOURCE")
 
     # Configura a string de conexão para o banco de dados SQL Server
     conn_str = (
@@ -41,7 +39,7 @@ def extract_entrega(timer: func.TimerRequest) -> None:
 
             # Busca todos os resultados da consulta
             rows = cursor.fetchall()
-
+    
             logging.info(rows)           
 
     except Exception as e:

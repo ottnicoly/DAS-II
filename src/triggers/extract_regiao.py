@@ -16,6 +16,4 @@ def extract_regiao(timer: func.TimerRequest) -> None:
     logging.info("Iniciando a extração de categoria_produto")
     logging.info(f"Conectando ao banco de dados SQL Server: {sql_server}")
     logging.info(f"Banco de dados: {sql_database}")
-    logging.info(f"Usuário: {sql_user}")
-    logging.info(f"Senha: {sql_password}")
     logging.info("Extração de categoria_produto concluída com sucesso")
