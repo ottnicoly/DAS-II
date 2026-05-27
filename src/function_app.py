@@ -10,6 +10,7 @@ from triggers.extract_entrega import app as entrega
 from triggers.extract_estoque_movimentacao import app as estoque_movimentacao
 from triggers.extract_estoque_saldo import app as estoque_saldo
 from triggers.extract_pedido_item import app as pedido_item
+from triggers.extract_pedido_sqllite import app as pedido_sqllite
 from triggers.extract_pedido import app as pedido
 from triggers.extract_produto import app as produto
 from triggers.extract_regiao import app as regiao
@@ -24,6 +25,7 @@ app.register_functions(entrega)
 app.register_functions(estoque_movimentacao)
 app.register_functions(estoque_saldo)
 app.register_functions(pedido_item)
+app.register_functions(pedido_sqllite)
 app.register_functions(pedido)
 app.register_functions(produto)
 app.register_functions(regiao)
