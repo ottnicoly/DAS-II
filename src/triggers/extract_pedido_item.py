@@ -32,7 +32,7 @@ def extract_pedido_item(timer: func.TimerRequest) -> None:
             # Cria um cursor para executar a consulta   
             cursor = conn.cursor()
             
-            query = "select top 5 * from erp.pedido"
+            query = "select top 5 * from erp.pedido_item"
 
             # Executa a consulta SQL
             cursor.execute(query)
