@@ -1,13 +1,13 @@
 import azure.functions as func
 import logging
-import pyodbc
+import pymssql
 import os
 import time
 
 app = func.Blueprint()
 
 @app.timer_trigger(schedule="0 0 6 * * *", arg_name="timer", run_on_startup=False)
-def extract_pedido(timer: func.TimerRequest) -> None:
+def extract_pedido_pymssql(timer: func.TimerRequest) -> None:
 
     sql_server = os.getenv("SQL_SERVER_SOURCE")
     database = os.getenv("SQL_DATABASE_SOURCE")
@@ -22,40 +22,34 @@ def extract_pedido(timer: func.TimerRequest) -> None:
 
     tempos_execucao = []
 
-    # String de conexão ODBC
-    conn_str = (
-        "DRIVER={ODBC Driver 18 for SQL Server};"
-        f"SERVER={sql_server};"
-        f"DATABASE={database};"
-        f"UID={user};"
-        f"PWD={password};"
-        "Encrypt=yes;"
-        "TrustServerCertificate=no;"
-        "Connection Timeout=30;"
-    )
-
     try:
-
-        # Executa 2 vezes
+        # Executa o teste 2 vezes
         for i in range(2):
 
-            logging.info(f"Iniciando teste {i + 1} com pyodbc")
+            logging.info(f"Iniciando teste {i + 1} com pymsSQL")
 
-            # Marca início
+            # Marca o tempo inicial
             inicio = time.perf_counter()
 
             # Abre conexão
-            with pyodbc.connect(conn_str) as conn:
+            conn = pymssql.connect(
+                server=sql_server,
+                user=user,
+                password=password,
+                database=database,
+                timeout=30,
+                login_timeout=30
+            )
 
-                cursor = conn.cursor()
+            cursor = conn.cursor(as_dict=True)
 
-                # Executa SELECT
-                cursor.execute(query)
+            # Executa SELECT
+            cursor.execute(query)
 
-                # Carrega TODAS as linhas em memória
-                rows = cursor.fetchall()
+            # Carrega TODAS as linhas para memória
+            rows = cursor.fetchall()
 
-            # Marca fim
+            # Marca tempo final
             fim = time.perf_counter()
 
             # Calcula duração
@@ -69,7 +63,11 @@ def extract_pedido(timer: func.TimerRequest) -> None:
                 f"{duracao:.4f} segundos"
             )
 
-        # Média
+            # Fecha conexão
+            cursor.close()
+            conn.close()
+
+        # Calcula média
         tempo_medio = sum(tempos_execucao) / len(tempos_execucao)
 
         logging.info(
