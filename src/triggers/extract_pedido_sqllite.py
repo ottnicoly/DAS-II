@@ -13,7 +13,7 @@ def extract_pedido_sqllite(timer: func.TimerRequest) -> None:
     try:
         inicio = time.perf_counter_ns()
 
-        db_path = Path(__file__).resolve().parent / "erp_pedido.db"
+        db_path = Path(__file__).resolve().parent / "erp.pedido.db"
 
         if not db_path.exists():
             raise FileNotFoundError(f"Banco SQLite não encontrado em: {db_path}")
