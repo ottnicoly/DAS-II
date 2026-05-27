@@ -1,13 +1,13 @@
 import azure.functions as func
 import logging
-import pyodbc
+import sqlite3
 import os
 import time
 
 app = func.Blueprint()
 
 @app.timer_trigger(schedule="0 0 6 * * *", arg_name="timer", run_on_startup=False)
-def extract_pedido(timer: func.TimerRequest) -> None:
+def extract_pedido_sqllite(timer: func.TimerRequest) -> None:
     
     sql_server = os.getenv("SQL_SERVER_SOURCE")
     sql_database = os.getenv("SQL_DATABASE_SOURCE")
@@ -26,28 +26,27 @@ def extract_pedido(timer: func.TimerRequest) -> None:
         "Connection Timeout=30;"
     )
 
-   
     try:
         inicio = time.perf_counter_ns()
 
-        # Estabelece a conexão com o banco de dados usando pyodbc
-        conn = pyodbc.connect(conn_str)
-        # Cria um cursor para executar a consulta   
+        # Estabelece a conexão com o banco de dados SQLite
+        conn = sqlite3.connect('erp_pedido.db')
         cursor = conn.cursor()
         
-        query = "select top 5 * from erp.pedido"
+        query = "SELECT * FROM pedido LIMIT 5"
 
         # Executa a consulta SQL
         cursor.execute(query)
+
         # Busca todos os resultados da consulta
         rows = cursor.fetchall()
-
+    
         logging.info(rows)           
         fim = time.perf_counter_ns()
-        print(f"{fim - inicio} ns")
 
+        print(f"{fim - inicio} ns")
     except Exception as e:
-        logging.error(f"Erro ao ler erp.pedido: {str(e)}")
+        logging.error(f"Erro ao ler pedido do SQLite: {str(e)}")
         raise
 
     finally:
