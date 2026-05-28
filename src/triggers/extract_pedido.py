@@ -41,20 +41,21 @@ def extract_pedido(timer: func.TimerRequest) -> None:
 
             logging.info(f"Iniciando teste {i + 1} com pyodbc")
 
+            conn = None
+            cursor = None
+
             # Marca início
             inicio = time.perf_counter()
 
-            # Abre conexão
-            with pyodbc.connect(conn_str) as conn:
+            # Abre conexão   
+            conn = pyodbc.connect(conn_str)
 
-                cursor = conn.cursor()
+            cursor = conn.cursor()
 
-                # Executa SELECT
-                cursor.execute(query)
+            # Executa SELECT
+            cursor.execute(query)
 
-                # Carrega TODAS as linhas em memória
-                rows = cursor.fetchall()
-
+            rows = cursor.fetchall()
             # Marca fim
             fim = time.perf_counter()
 
@@ -67,7 +68,10 @@ def extract_pedido(timer: func.TimerRequest) -> None:
                 f"Teste {i + 1} concluído - "
                 f"{len(rows)} linhas carregadas em "
                 f"{duracao:.4f} segundos"
-            )
+            )   
+
+            cursor.close()
+            conn.close()
 
         # Média
         tempo_medio = sum(tempos_execucao) / len(tempos_execucao)

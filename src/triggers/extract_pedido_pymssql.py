@@ -70,9 +70,7 @@ def extract_pedido_pymssql(timer: func.TimerRequest) -> None:
         # Calcula média
         tempo_medio = sum(tempos_execucao) / len(tempos_execucao)
 
-        logging.info(
-            f"Tempo médio de SELECT: {tempo_medio:.4f} segundos"
-        )
+        logging.info(f"Tempo médio de SELECT: {tempo_medio:.4f} segundos")
 
     except Exception as e:
         logging.error(f"Erro ao ler erp.pedido: {str(e)}")
