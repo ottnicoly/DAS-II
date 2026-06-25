@@ -4,7 +4,6 @@ from .conexao import get_source_conn, get_meu_conn
 SCHEMA = "erp"
 BATCH_SIZE = 1000
 
-
 def nome_tabela(table_name: str) -> str:
     return f"[{SCHEMA}].[{table_name}]"
 

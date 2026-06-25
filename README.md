@@ -26,28 +26,35 @@ A solução entrega dashboards atualizados diariamente para as áreas Comercial,
 
 | Nome | GitHub |
 |---|---|
-| Nicoly Cristina Ott | [@ottnicoly](https://github.com/ottnicoly) |
-| Matheus Campos | [@matheus](https://github.com/MatheusCampos98) |
-| Gabiel Venerusso | [@gabrielvenerusso](https://github.com/gabrielvenerusso) |
+| Gabriel Venerusso | [@gabrielvenerusso](https://github.com/gabrielvenerusso) |
 | Larissa Bertling | [@larissa](https://github.com/larissabertling) |
+| Matheus Campos | [@matheus](https://github.com/MatheusCampos98) |
+| Nicoly Cristina Ott | [@ottnicoly](https://github.com/ottnicoly) |
 
 ---
 
 ## 🗂️ Estrutura do Repositório
 
-```
+```text
 DAS-II/
-├── README.md                        ← Você está aqui
-└── docs/
-    ├── adr/
-    │   ├── ADR-001.md               ← ADR: Ingestão com Azure Functions (serverless)
-    │   ├── ADR-002.md               ← ADR: Estratégia de armazenamento (Azure SQL Database)
-    │   └── estimate-cost.xlsx       ← Estimativa de custos (Azure Calculator)
-    └── c4/
-        ├── 01-context.md            ← C4 Nível 1: Diagrama de Contexto
-        ├── 02-container.md          ← C4 Nível 2: Diagrama de Containers
-        ├── c4-context.png           ← Imagem do diagrama de contexto
-        ├── c4-container.png         ← Imagem do diagrama de containers
+├── README.md                      ← Documentação principal do projeto
+├── docs/
+│   ├── adr/
+│   │   ├── ADR-001.md             ← ADR: Ingestão com Azure Functions
+│   │   ├── ADR-002.md             ← ADR: Azure SQL Database
+│   │   ├── ADR_BANCO.md           ← ADR complementar sobre banco de dados
+│   │   ├── ADR Biblioteca Python para SQL Server (pyodbc vs pymssql).pdf
+│   │   └── estimate-cost.xlsx     ← Estimativa de custos no Azure
+│   └── c4/
+│       ├── 01-context.md          ← C4 Nível 1: Contexto
+│       ├── 02-container.md        ← C4 Nível 2: Containers
+│       ├── c4-context.png         ← Diagrama de contexto
+│       └── c4-container.png       ← Diagrama de containers
+└── src/
+    ├── function_app.py            ← Azure Function principal
+    ├── host.json                  ← Configuração do runtime da Azure Function
+    ├── requirements.txt           ← Dependências Python
+    └── triggers/                  ← Funções/triggers auxiliares
 ```
 
 ---
@@ -106,6 +113,15 @@ DAS-II/
               │  Power BI Service  │  ← Dashboards e KPIs
               └────────────────────┘
 ```
+
+## 🛠️ Tecnologias Utilizadas
+
+* **Python** — implementação das Azure Functions;
+* **Azure Functions** — ingestão e transformação dos dados;
+* **Azure Blob Storage** — armazenamento dos dados brutos;
+* **Azure SQL Database** — banco analítico central;
+* **Power BI Service** — visualização dos indicadores e dashboards;
+* **GitHub Actions** — apoio à automação do repositório.
 
 ---
 
