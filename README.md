@@ -134,3 +134,15 @@ DAS-II/
 ---
 
 *Projeto desenvolvido para a disciplina DAS-II — 2026.*
+
+
+**2B-001 — EL com Azure Functions**
+
+**Objetivo:** Construir um pipeline Extract & Load (EL) com Azure Functions que sincroniza dados do banco do professor para o banco do grupo.
+
+**O que foi feito:** As Azure Functions existentes foram utilizadas para extrair os dados do banco ERP VendaMais (fornecido pelo professor) e carregá-los no banco SQL do grupo, replicando todas as tabelas.
+
+SQL Database          Function App         SQL Database
+(ERP VendaMais)  ←— Extrair —— ⚡ —— Carregar —→  (Grupo)
+
+Entrega: Via Git + banco populado.
