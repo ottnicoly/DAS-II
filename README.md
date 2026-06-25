@@ -114,6 +114,17 @@ DAS-II/
               └────────────────────┘
 ```
 
+
+## 📊 Imagens Resultado BI
+
+### Logística
+![alt text](<docs/img/Dashboard Logística.png>)
+
+### Vendas
+![alt text](<docs/img/Dashboard Vendas.png>)
+
+---
+
 ## 🛠️ Tecnologias Utilizadas
 
 * **Python** — implementação das Azure Functions;
